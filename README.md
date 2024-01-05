@@ -16,26 +16,23 @@ Similar to carla official docker prerequisites
 #### Getting the docker image
 Build the docker locally
 ```commandline
-sudo docker build -t hangqiu/carla:0.9.13 --file ./carla.Dockerfile .
+sudo docker build -t carla/carla:0.9.13 --file ./carla.Dockerfile .
 ```
-Or, pull the image from docker hub
-```commandline
-sudo docker pull hangqiu/carla:0.9.13
-```
+Or pull the [prebuilt image](https://hub.docker.com/r/hangqiu/carla/tags).
 
 #### Run carla simulator
 Run the carla server
 ```commandline
 sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d \
-    hangqiu/carla:0.9.13 \
+    carla/carla:0.9.13 \
     /bin/bash /opt/carla-simulator/CarlaUE4.sh
 ```
 And run carla client with manual control
 ```commandline
 sudo docker run -it --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d \
-    hangqiu/carla:0.9.13 \
+    carla/carla:0.9.13 \
     /bin/python3 /opt/carla-simulator/PythonAPI/examples/manual_control.py 
 ```
 
@@ -45,12 +42,9 @@ sudo docker run -it --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
 
 Build the docker locally. The scenario docker image is built on top of the carla image. [Get the carla image](#carla-docker-image) first before proceeding.
 ```commandline
-sudo docker build -t hangqiu/srunner:0.9.13 --file ./srunner.Dockerfile .
+sudo docker build -t carla/srunner:0.9.13 --file ./srunner.Dockerfile .
 ```
-Or, pull the image from docker hub
-```commandline
-sudo docker pull hangqiu/srunner:0.9.13
-```
+Or pull the [prebuilt image](https://hub.docker.com/r/hangqiu/srunner/tags).
 
 #### Run Scenario Runner 
 
@@ -58,14 +52,14 @@ Start the carla server
 ```commandline
 sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d \
-    hangqiu/carla:0.9.13 \
+    carla/carla:0.9.13 \
     /bin/bash /opt/carla-simulator/CarlaUE4.sh
 ```
 Run a scenario,
 ```commandline
 sudo docker run -it --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d  \
-    hangqiu/srunner:0.9.13  \
+    carla/srunner:0.9.13  \
     /bin/python3 scenario_runner.py --scenario FollowLeadingVehicle_1 --reloadWorld
 ```
 This starts the scenario *FollowLeadingVehicle_1*. Check out [more scenarios](https://github.com/carla-simulator/scenario_runner/tree/master/srunner/scenarios) to run.
@@ -74,7 +68,7 @@ Now start a manual control agent
 ```commandline
 sudo docker run -it --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d \
-    hangqiu/srunner:0.9.13 \
+    carla/srunner:0.9.13 \
     /bin/python3 manual_control.py
 ```
 ![img](Docs/imgs/srunner_manual_control.png)
