@@ -35,13 +35,29 @@ sudo docker run --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     cisl/carla:0.9.15 \
     /bin/bash CarlaUE4.sh
 ```
+
+#### Running carla client
+##### a) Using native Pypi package
 * Clone the [carla repo](https://github.com/carla-simulator/carla), 
 then run the carla client without docker (tested with ubuntu22.04 and python3.10)
 ```commandline
 pip3 install carla==0.9.15 ### install carla PythonAPI PyPi package
 python3 <path-to-carla-root>/PythonAPI/examples/manual_control.py
 ```
-* Or run carla client with manual control
+
+##### or b) Using carla client docker
+```commandline
+sudo docker build -t cisl/carla_client --file ./carla_ro2_client.Dockerfile .
+```
+Note: the client docker does not have manual_control.py script built in. Need to clone separately.
+
+When running the client docker, remember to also give full network and display access.
+```
+sudo docker run -it --rm --net=host -e DISPLAY=$DISPLAY cisl/carla_client
+```
+
+##### or c) Using same carla server docker
+* run carla client with manual control
 ```commandline
 sudo docker run -it --privileged --gpus all --net=host -e DISPLAY=$DISPLAY \
     -v /usr/share/vulkan/icd.d:/usr/share/vulkan/icd.d \
